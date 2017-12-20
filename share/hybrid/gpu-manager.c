@@ -3201,7 +3201,7 @@ static bool enable_prime(const char *prime_settings,
         }
     }
 
-    if (!bbswitch_loaded && !force_dgpu_on) {
+    if (!bbswitch_loaded) {
         /* Try to load bbswitch */
         /* opts="`/sbin/get-quirk-options`"
         /sbin/modprobe bbswitch load_state=-1 unload_state=1 "$opts" || true */
@@ -3212,8 +3212,7 @@ static bool enable_prime(const char *prime_settings,
     }
 
     /* Get the current status from bbswitch */
-    if (!force_dgpu_on)
-        prime_discrete_on = !bbswitch_status ? true : prime_is_discrete_nvidia_on();
+    prime_discrete_on = !bbswitch_status ? true : prime_is_discrete_nvidia_on();
 
     /* Get the current settings for discrete
      * Note: the force-dgpu-on hook overrides this, and always

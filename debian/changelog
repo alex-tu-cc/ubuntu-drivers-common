@@ -1,3 +1,9 @@
+ubuntu-drivers-common (1:0.4.24oem1) xenial; urgency=medium
+
+  * gpu-manager.c: let fource-dgpu-on only skip bbswitch operations.
+
+ -- u <u@u-Latitude-5591>  Wed, 20 Dec 2017 03:56:52 -0500
+
 ubuntu-drivers-common (1:0.4.24) bionic; urgency=medium
 
   * gpu-manager.{c|py}:
