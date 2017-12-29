@@ -26,7 +26,8 @@ def system_modaliases():
     This ignores devices whose drivers are statically built into the kernel, as
     you cannot replace them with other driver packages anyway.
 
-    Return a modalias → sysfs path map.
+    Return a modalias → sysfs path map. The keys of the returned map are
+    suitable for a PackageKit WhatProvides(MODALIAS) call.
     '''
     aliases = {}
     for path, dirs, files in os.walk('/sys/devices'):

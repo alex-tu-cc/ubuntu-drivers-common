@@ -1,20 +1,30 @@
-ubuntu-drivers-common (1:0.4.24) bionic; urgency=medium
+ubuntu-drivers-common (1:0.4.17.4) xenial-proposed; urgency=medium
 
+  [ Alberto Milone ]
   * gpu-manager.{c|py}:
     - Add support for forcing the dGPU on on hybrid systems.
       Creating an empty file named "force-dgpu-on"
       in the /usr/share/gpu-manager.d directory will force the dGPU
       on in power saving mode (LP: #1728547).
+    - Sync amdgpu-pro support from 17.10.
 
- -- Alberto Milone <alberto.milone@canonical.com>  Mon, 30 Oct 2017 10:25:02 +0100
+  [ Kai-Heng Feng ]
+  * debian/control:
+    - Add build dependency on libkmod-dev.
+  * gpu-manager.c:
+    - Detect and handle switchable graphics with the amdgpu-pro driver.
+      AMDGPU-Pro has its own script to switch between powersaving and
+      performance mode (LP: #1731873).
+      Some machines allow enabling switchable graphics, or disabling
+      the iGPU completely, thus leaving only the dGPU on. This new code
+      simply detects the different profiles supported by AMD, and
+      enables powersaving mode when possible.
 
-ubuntu-drivers-common (1:0.4.23) artful; urgency=medium
+ -- Alberto Milone <alberto.milone@canonical.com>  Mon, 30 Oct 2017 15:48:27 +0100
 
-  [ Alberto Milone ]
+ubuntu-drivers-common (1:0.4.17.3) xenial-proposed; urgency=medium
+
   * gpu-manager.{c|py}:
-    - Disable persistence mode before powering down the dGPU.
-      If persistence mode is not disabled, gpu-manager will not be
-      able to unload the nvidia module.
     - Add support for using custom xorg.confs with the nvidia
       driver (LP: #1667198).
       Custom xorg files can be named "non-hybrid" (for non hybrid
@@ -25,48 +35,10 @@ ubuntu-drivers-common (1:0.4.23) artful; urgency=medium
       along with the "--custom-xorg-conf-path" parameter.
     - Add tests for the custom xorg.confs code and for amdgpu-pro
       hybrid support.
-  [ Kai-Heng Feng ]
-  * debian/control:
-    - Add build dependency on libkmod-dev.
-  * gpu-manager.c:
-    - Detect and handle switchable graphics with the amdgpu-pro driver.
-      AMDGPU-Pro has its own script to switch between powersaving and
-      performance mode.
-      Some machines allow enabling switchable graphics, or disabling
-      the iGPU completely, thus leaving only the dGPU on. This new code
-      simply detects the different profiles supported by AMD, and
-      enables powersaving mode when possible.
 
- -- Alberto Milone <alberto.milone@canonical.com>  Thu, 11 May 2017 11:05:40 +0200
+ -- Alberto Milone <alberto.milone@canonical.com>  Mon, 19 Jun 2017 17:27:33 +0200
 
-ubuntu-drivers-common (1:0.4.22) yakkety; urgency=medium
-
-  * gpu-manager.c:
-    - Disable persistence mode before powering down the dGPU.
-      If persistence mode is not disabled, gpu-manager will not be able to
-      unload the nvidia module.
-
- -- Alberto Milone <alberto.milone@canonical.com>  Wed, 31 Aug 2016 18:09:25 +0200
-
-ubuntu-drivers-common (1:0.4.21) yakkety; urgency=medium
-
-  * gpu-manager.c:
-    - Make sure to load and unload the new nvidia-drm module.
-      This fixes a problem that prevents the dGPU from being powered off
-      in hybrid systems with recent nvidia drivers.
-
- -- Alberto Milone <alberto.milone@canonical.com>  Wed, 31 Aug 2016 11:47:13 +0200
-
-ubuntu-drivers-common (1:0.4.20) yakkety; urgency=medium
-
-  * Remove PackageKit plugin. This stopped working with packagekit 1.0 as its
-    apt backend is gone and aptcc does not support plugins.
-  * debian/control: Drop obsolete XS-Testsuite:.
-  * Bump Standards-Version to 3.9.8.
-
- -- Martin Pitt <martin.pitt@ubuntu.com>  Tue, 16 Aug 2016 11:46:36 +0200
-
-ubuntu-drivers-common (1:0.4.19) yakkety; urgency=medium
+ubuntu-drivers-common (1:0.4.17.2) xenial-proposed; urgency=medium
 
   [ Alberto Milone ]
   * gpu-manager.c:
@@ -74,6 +46,12 @@ ubuntu-drivers-common (1:0.4.19) yakkety; urgency=medium
       alternatives->current_core and alternatives->current_egl.
     - Partially drop the drm code, and get information about connectors
       from sysf. This fixes a long standing performance issue (LP: #1586933).
+    - Disable persistence mode before powering down the dGPU.
+      If persistence mode is not disabled, gpu-manager will not be able to
+      unload the nvidia module (LP: #1619306).
+    - Make sure to load and unload nvidia-drm. This fixes a problem that
+      prevents the dGPU from being powered off in hybrid systems with
+      recent nvidia drivers (LP: #1619306).
 
   [ Ying-Chun Liu (PaulLiu) ]
   * Quirks/quirkinfo.py:
@@ -81,9 +59,9 @@ ubuntu-drivers-common (1:0.4.19) yakkety; urgency=medium
       may report board_name as ffffffffffff0a to mean empty, and this
       causes an error in python 3 (LP: #1320868).
 
- -- Alberto Milone <alberto.milone@canonical.com>  Mon, 30 May 2016 16:17:42 +0200
+ -- Alberto Milone <alberto.milone@canonical.com>  Mon, 06 Jun 2016 12:49:19 +0200
 
-ubuntu-drivers-common (1:0.4.18) yakkety; urgency=medium
+ubuntu-drivers-common (1:0.4.17.1) xenial-proposed; urgency=medium
 
   * gpu-manager.c:
     - Pass the arguments in the correct order when getting
